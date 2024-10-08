@@ -3,6 +3,7 @@
 #include<time.h>
 
 #include "tic_tac_toe.c"
+#include "rock_paper_scissors.c"
 
 typedef struct{
   char name[100];
@@ -49,6 +50,7 @@ int main(){
     }while(check);
   }
   TicTacToe();
+  RPS();
 }
 
 void printStage(player players[], char track[], int player_count){

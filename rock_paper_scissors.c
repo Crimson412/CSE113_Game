@@ -13,11 +13,11 @@ void RPS(){
     }
     char p1move,p2move;
     printf("player 1 goes now and second player close your eyes\n");
-    scanf("%c",&p1move);
+    scanf(" %c",&p1move);
     system("clear");
     
     printf("player 2 goes now and first player close your eyes\n");
-    scanf("%c",&p2move);
+    scanf(" %c",&p2move);
     p1move = tolower(p1move);
     p2move = tolower(p2move);
 
@@ -75,8 +75,4 @@ void RPS(){
         }
         break;    
     }
-}
-
-int main(){
-    RPS();
 }
