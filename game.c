@@ -26,7 +26,6 @@ int main(){
       track[i] = '!';
     else
       track[i] = '*';
-    printf("%c", track[i]);
   }
   //char track[40] = {'-', '-', '*', '-', '-', '-', '*', '-', '-', '*', '-', '*', '-', '-', '*', '-', '-', '*', '-', '-', '*', '-', '-', '*', '-', '*', '-', '-', '*', '-','-', '-', '*', '-', '-', '-', '*', '-', '-', '*'}
   int player_count;
@@ -49,12 +48,37 @@ int main(){
 	    check++;
     }while(check);
   }
+  printStage(players, track, player_count);
   TicTacToe();
   RPS();
 }
 
 void printStage(player players[], char track[], int player_count){
-  int check = 0;
+  char t = '!';
+  printf("\n\n\n\t\t      %c       %c       %c       %c       %c\n", t, t, t, t, t);
+  printf("\t\t  -----------------------------------------\n");
+  printf("\t\t  |       |       |       |       |       |\n");
+  printf("\t\t  |   %c   |   %c   |   %c   |   %c   |   %c   |\n", track[0], track[1], track[2], track[3], track[4]);
+  printf("\t\t  |       |       |       |       |       |\n");
+  printf("\t\t  -----------------------------------------\n");
+  printf("\t\t  |       |                       |       |\n"); 
+  printf("\t\t%c |   %c   |         GAME          |   %c   | %c\n", t, track[15], track[5], t);
+  printf("\t\t  |       |                       |       |\n");
+  printf("\t\t  ---------                       ---------\n");
+  printf("\t\t  |       |                       |       |\n"); 
+  printf("\t\t%c |   %c   |         IN A          |   %c   | %c\n", t, track[14], track[6], t);
+  printf("\t\t  |       |                       |       |\n");
+  printf("\t\t  ---------                       ---------\n");
+  printf("\t\t  |       |                       |       |\n"); 
+  printf("\t\t%c |   %c   |         GAME!         |   %c   | %c\n", t, track[13], track[7], t);
+  printf("\t\t  |       |                       |       |\n");
+  printf("\t\t  -----------------------------------------\n");
+  printf("\t\t  |       |       |       |       |       |\n");
+  printf("\t\t  |   %c   |   %c   |   %c   |   %c   |   %c   |\n", track[12], track[11], track[10], track[9], track[8]);
+  printf("\t\t  |       |       |       |       |       |\n");
+  printf("\t\t  -----------------------------------------\n");
+  printf("\t\t      %c       %c       %c       %c       %c\n\n\n\n", t, t, t, t, t);
+  /*int check = 0;
   for(int i = 0; i < 10; i++){
     for(int j = 0; j < player_count; j++){
       check = 0;
@@ -66,4 +90,5 @@ void printStage(player players[], char track[], int player_count){
     if(check)
       printf("    ");
   }
+  */
 }
