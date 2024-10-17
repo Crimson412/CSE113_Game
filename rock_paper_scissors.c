@@ -1,9 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
+#include"rock_paper_scissors.h"
 
-void RPS(){
+void RPS(player p1, player p2){
     int ui;
     printf("Welcome to Rock Paper Scissors\nPress 1 if you would like a tutorial else press another number\n");
     scanf("%d",&ui);

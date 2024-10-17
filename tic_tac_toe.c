@@ -1,11 +1,6 @@
-#include <stdio.h>
+#include"tic_tac_toe.h"
 
-char winner = 'N';
-
-void print_pos(char[][3]);
-char checkwin(char[][3]);
-
-void TicTacToe(){
+void TicTacToe(player p1, player p2){
     int ui;
     char pos[3][3] = { {'1', '2', '3'}, {'4', '5', '6'}, {'7', '8', '9'} };
     printf("Welcome to Tic Tac Toe\nThe player that landed on the square goes first");
