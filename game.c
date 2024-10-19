@@ -14,7 +14,7 @@ int main(){
   int player_count;
   printf("Welcome to Game in a Game (GIG)!!\nHow many players are there?\n");
   scanf("%d", &player_count);
-  if(player_count < 2)
+  if(player_count < 2 || player_count > 100)
     player_count = 2;
   player players[player_count];
   for(int i = 0; i < player_count; i++){
@@ -30,7 +30,7 @@ int main(){
       scanf(" %c", &players[i].icon);
       for(int j = 0; j < player_count; j++)
 	if(j != i)
-	  if(players[j].icon == players[i].icon)
+	  if(players[j].icon == players[i].icon || players[i].icon == '^')
 	    check++;
     }while(check);
   }
@@ -41,8 +41,9 @@ int main(){
     rounds = 10;
   printf("\nHere are the Rules: Each player will take turns in order. Rolling a 10 sided die. The square that you land on determines your turn.\n\" \" (empty space) indicates a safe square, and your score increases by (1-10) * the value you rolled\n\"!\" (exclamation mark) indicates a bad square. Your score will decrease by (1-10) * the value rolled.\n'*' (mini-game) this will prompt the player to go into a mini-game with another randomly selected player.\nThe winner gains 10*value rolled and the loser loses that amount. If there is a tie nothing happens.\nPlayers progress on the track will be showed by their icon above their respective squares. If more than one player occupies a square the \n\'^\' character will be displayed over that square.\nOnce the player in the lead has crossed the start location a number of times = to the amount of rounds, the game ends and that player gains \nan additional 10*value rolled points. Each player starts out with 10 points\nGood luck and enjoy Game in a Game!\n\n");
   int max_round = players[0].laps;
-  for(;;){
-    for(int j = 0; j < player_count; j++){
+  int keep_playing = 1;
+  while(keep_playing){
+    for(int j = 0; j < player_count && keep_playing; j++){
       printf("Player %d's turn! enter any character to roll %s! ", j+1, players[j].name);
       char c[256];
       scanf("%s", c);
@@ -50,16 +51,19 @@ int main(){
       int result = manage_round(players, j, track, player_count, roll, max_round);
       if(result){
 	int rand = random()%num_games+1;
-	player p2 = players[j];
-	while(p2.icon == players[j].icon)
-	  p2 = players[random()%player_count];
-	printf("%s and %s have been chosen for a random MINIGAME! enter any character to continue: ", players[j].name, p2.name);
+	player *p2 = &players[j];
+	while(p2->icon == players[j].icon)
+	  p2 = &players[random()%player_count];
+	printf("%s and %s have been chosen for a random MINIGAME! enter any character to continue: ", players[j].name, p2->name);
 	scanf("%s", c);
 	switch(rand)
 	{
-	case 1: RPS(players[j], p2);
+	case 1: RPS(&players[j], p2);
 	  break;
-        case 2: TicTacToe(players[j], p2);
+        case 2: TicTacToe(&players[j], p2);
+	  break;
+	case 3:
+	  num_guess(&players[j], p2);
 	  break;
 	default: printf("Minigame selection error!!\n");
 	}
@@ -68,10 +72,29 @@ int main(){
 	max_round = players[j].laps;
       if(max_round > rounds){
 	players[j].score += 10*roll;
-	break;
+	keep_playing = 0;
       }
     }
   }
+  printf("\n\nGAME OVER!\n");
+  int max = players[0].score;
+  int index = 0;
+  int tie_index = -1;
+  for(int i = 1; i < player_count; i++){
+    if(players[i].score > max){
+      max = players[i].score;
+      index = i;
+    }
+    else if(players[i].score == max)
+      tie_index = i;
+  }
+  if(players[tie_index].score == players[index].score)
+    printf("WE HAVE A TIE!\nThe two winners are: %s and %s!\n\n", players[index].name, players[tie_index].name);
+  else
+    printf("The winner is: %s!\n\n", players[index].name);
+  printf("END RESULTS:\n");
+  for(int i = 0; i < player_count; i++)
+    printf("Player %d: %s (%c)\n\tScore: %d\tLaps: %d\n", i+1, players[i].name, players[i].icon, players[i].score, players[i].laps);
 }
 
 int manage_round(player players[], int p1, char track[], int player_count, int roll, int round){

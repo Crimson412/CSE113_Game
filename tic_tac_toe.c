@@ -1,6 +1,6 @@
 #include"tic_tac_toe.h"
 
-void TicTacToe(player p1, player p2){
+void TicTacToe(player* p1, player* p2){
     int ui;
     char pos[3][3] = { {'1', '2', '3'}, {'4', '5', '6'}, {'7', '8', '9'} };
     printf("Welcome to Tic Tac Toe\nThe player that landed on the square goes first");
@@ -9,9 +9,9 @@ void TicTacToe(player p1, player p2){
     scanf("%d", &ui);
     if (ui == 1)
         printf("For top left input: 1\nFor top middle input: 2\nFor top right input: 3\nFor middle left input: 4\nFor middle middle input: 5\nFor middle right input: 6\nFor bottom left input: 7\nFor bottom middle input: 8\nFor bottom right input: 9\nEnjoy the game!!!\n");
-    while (winner == 'N'){    
-      printf("Attacking player turn: ");
-      scanf("%d",&ui);
+    while (1){    
+      printf("Player %s (X) turn: ", p1->name);
+      scanf(" %d", &ui);
       if (ui == 1 && pos[0][0] == '1')
 	pos[0][0] = 'X';
       else if (ui == 2 && pos[0][1] == '2')
@@ -32,11 +32,22 @@ void TicTacToe(player p1, player p2){
         pos[2][2] = 'X';
       else
         printf("Lost your turn!\n");
-    winner = checkwin(pos);            
+    winner = checkwin(pos);
     print_pos(pos);
-
-    printf("Defending player turn: ");
-    scanf("%d",&ui);
+    if(winner == 'X'){
+      p1->score += TTTprize;
+      p2->score -= TTTloss;
+      return;
+    }
+    else if(winner == 'D'){
+      p1->score -= TTTloss;
+      p2->score -= TTTloss;
+      return;
+    }
+    ui = 1;
+    
+    printf("Player %s (O) turn: ", p2->name);
+    scanf(" %d", &ui);
     if (ui == 1 && pos[0][0] == '1')
       pos[0][0] = 'O';
     else if (ui == 2 && pos[0][1] == '2')
@@ -59,6 +70,11 @@ void TicTacToe(player p1, player p2){
       printf("Lost your turn!\n");
     winner = checkwin(pos);
     print_pos(pos);
+    if(winner == 'O'){
+      p2->score += TTTprize;
+      p1->score -= TTTloss;
+      return;
+    }
     }
 }
 

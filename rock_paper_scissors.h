@@ -2,13 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include"struct.h"
 
-typedef struct{
-  char name[100];
-  int score;
-  int loc;
-  char icon;
-  int laps;
-}player;
+void RPS(player*, player*);
 
-void RPS(player, player);
+unsigned const int RPSprize = 100;
+unsigned const int RPSloss = 50;
