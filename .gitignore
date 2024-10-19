@@ -1,1 +1,5 @@
-a.out
+game
+game.o
+number_guessing.o
+rock_paper_scissors.o
+tic_tac_toe.o
