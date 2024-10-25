@@ -10,4 +10,4 @@ number_guessing.o: number_guessing.c number_guessing.h struct.h
 	gcc -c number_guessing.c
 
 clean:
-	rm *.o game game.c~ game.h~ rock_paper_scissors.c~ rock_paper_scissors.h~ tic_tac_toe.c~ tic_tac_toe.h~ number_guessing.c~ number_guessing.h~ Makefile~ struct.h~
+	rm -f *.o *~ game
